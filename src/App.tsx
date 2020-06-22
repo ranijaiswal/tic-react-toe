@@ -62,11 +62,15 @@ function togglePlayer(player: Player) {
     return Player.X
 }
 
-function App() {
-    const [gameState, setGameState] = useState<GameState>({
+function getInitialState() {
+    return {
         currentPlayer: Player.O,
         board: Array.from({length: 9}).map(() => Space.Empty)
-    });
+    }
+}
+
+function App() {
+    const [gameState, setGameState] = useState<GameState>(getInitialState());
     function spaceClicked(row: number, col: number) {
         const indexClicked = 3 * row + col;
         const newBoard = [...gameState.board];
@@ -89,6 +93,8 @@ function App() {
                     Current player is <DisplayPlayer player={gameState.currentPlayer}/>
                 </p>
                 <Board board={gameState.board} onClick={spaceClicked}/>
+                <p>Enjoy!</p>
+                <button onClick={() => setGameState(getInitialState())}>Restart Game</button>
             </header>
         </div>
     );
